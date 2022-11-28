@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://6jcs56781467"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yde62"]
+size = Vector2(31, 8)
+
+[node name="Magnet" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+priority = 1.0
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(-10, 0)
+gravity_direction = Vector2(-10, 0)
+
+[node name="MagnetShape" type="CollisionShape2D" parent="."]
+position = Vector2(17.5, 0)
+shape = SubResource("RectangleShape2D_yde62")
+debug_color = Color(0.768627, 0.443137, 0.0745098, 0.419608)

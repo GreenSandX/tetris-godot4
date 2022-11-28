@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://uqdqdmf7sb1j"]
+
+[ext_resource type="Script" path="res://Game/BlockCell.gd" id="1_88y15"]
+[ext_resource type="Material" uid="uid://cdovsthvhtqgt" path="res://Shader/color_swap_m.tres" id="2_bxn6i"]
+[ext_resource type="Texture2D" uid="uid://d17qfyjnuhe0q" path="res://Assets/brick_only_green64.png" id="2_ktgmy"]
+[ext_resource type="PackedScene" uid="uid://d1en0v7iianb2" path="res://Game/LinkJoint.tscn" id="3_ue1y8"]
+[ext_resource type="AudioStream" uid="uid://cljpcgc7c3j1l" path="res://Assets/touch.wav" id="5_t38ct"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pknhv"]
+bounce = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrjj8"]
+size = Vector2(64, 64)
+
+[node name="BlockCell" type="RigidBody2D"]
+material = ExtResource("2_bxn6i")
+mass = 2.47
+inertia = 1.97
+physics_material_override = SubResource("PhysicsMaterial_pknhv")
+custom_integrator = true
+script = ExtResource("1_88y15")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lrjj8")
+
+[node name="VisualNode" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("2_ktgmy")
+
+[node name="LinkJoint" parent="." instance=ExtResource("3_ue1y8")]
+position = Vector2(32, 0)
+
+[node name="LinkJoint2" parent="." instance=ExtResource("3_ue1y8")]
+position = Vector2(0, 32)
+rotation = 1.57079
+
+[node name="LinkJoint3" parent="." instance=ExtResource("3_ue1y8")]
+position = Vector2(-32, 0)
+rotation = -3.14159
+
+[node name="LinkJoint4" parent="." instance=ExtResource("3_ue1y8")]
+position = Vector2(0, -32)
+rotation = -1.57079
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_t38ct")
+max_polyphony = 3

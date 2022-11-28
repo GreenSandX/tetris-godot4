@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cdovsthvhtqgt"]
+
+[ext_resource type="Shader" uid="uid://jsxn8nkwn146" path="res://Shader/color_swap.tres" id="1_0dh5p"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_0dh5p")
+shader_parameter/color = Vector4(30, 30, 30, 30)

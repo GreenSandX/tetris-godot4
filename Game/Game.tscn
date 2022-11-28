@@ -1,0 +1,188 @@
+[gd_scene load_steps=6 format=3 uid="uid://ka3uda16xwsd"]
+
+[ext_resource type="Script" path="res://Game/Game.gd" id="1_byfcf"]
+[ext_resource type="FontFile" uid="uid://cxqhgys8m50hm" path="res://fonts/IPix中文像素字体.ttf" id="2_1url8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yfrv7"]
+radius = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tp80f"]
+size = Vector2(1932, 50)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eppci"]
+radius = 344.093
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_byfcf")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 736.0
+offset_bottom = 1240.0
+
+[node name="Panel" type="Panel" parent="Control"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_left = 2.656
+anchor_right = 2.656
+anchor_bottom = 0.87
+offset_left = -632.32
+offset_right = -0.320068
+offset_bottom = 8.15991
+
+[node name="QuitBtn" type="Button" parent="Control/Panel"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.993
+offset_left = -160.0
+offset_top = 8.0
+offset_bottom = -984.44
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 32
+text = "关闭"
+
+[node name="ProductBtn" type="Button" parent="Control/Panel"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.007
+offset_left = -160.0
+offset_top = 96.0
+offset_bottom = -911.56
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 32
+text = "生成"
+
+[node name="ClearBtn" type="Button" parent="Control/Panel"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = 184.0
+offset_bottom = -808.0
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 32
+text = "清除"
+
+[node name="HSlider" type="HSlider" parent="Control/Panel"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = 296.0
+offset_right = -1.0
+offset_bottom = -768.0
+min_value = 1.0
+max_value = 50.0
+value = 25.0
+
+[node name="Label" type="Label" parent="Control/Panel/HSlider"]
+anchors_preset = -1
+anchor_left = 1.05
+anchor_top = -1.0
+anchor_right = 1.05
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.40002
+offset_bottom = -9.0
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.521569)
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 18
+text = "25"
+
+[node name="Label2" type="Label" parent="Control/Panel/HSlider"]
+anchors_preset = -1
+anchor_top = -1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -32.0
+offset_bottom = -12.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.505882)
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 16
+text = "推力倍数"
+
+[node name="DebugLabel" type="RichTextLabel" parent="Control/Panel"]
+anchors_preset = -1
+anchor_top = 0.541
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 7.71997
+offset_right = -1.0
+offset_bottom = -8.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_1url8")
+theme_override_font_sizes/normal_font_size = 16
+
+[node name="Selector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 255
+
+[node name="SelectorPoint" type="RigidBody2D" parent="Selector"]
+collision_layer = 0
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Selector"]
+shape = SubResource("CircleShape2D_yfrv7")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Rope" type="DampedSpringJoint2D" parent="Selector"]
+bias = 0.371
+length = 5.0
+stiffness = 10.0
+damping = 16.0
+
+[node name="Wall" type="Node2D" parent="."]
+
+[node name="Floor" type="RigidBody2D" parent="Wall"]
+freeze = true
+linear_damp = 15.73
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor"]
+position = Vector2(952, 1056)
+shape = SubResource("RectangleShape2D_tp80f")
+
+[node name="Floor3" type="RigidBody2D" parent="Wall"]
+freeze = true
+linear_damp = 15.73
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor3"]
+position = Vector2(1944, 576)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_tp80f")
+
+[node name="Floor4" type="RigidBody2D" parent="Wall"]
+freeze = true
+linear_damp = 15.73
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor4"]
+position = Vector2(-23.9998, 708)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_tp80f")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(608, 544)
+collision_layer = 0
+gravity_space_override = 3
+gravity_point = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_eppci")
+disabled = true
+debug_color = Color(0, 0.6, 0, 0.207843)
+
+[connection signal="button_up" from="Control/Panel/QuitBtn" to="." method="_on_quit_btn_button_up"]
+[connection signal="button_up" from="Control/Panel/ProductBtn" to="." method="_on_product_btn_button_up"]
+[connection signal="button_up" from="Control/Panel/ClearBtn" to="." method="_on_clear_btn_button_up"]
+[connection signal="value_changed" from="Control/Panel/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="body_entered" from="Selector" to="." method="_on_selector_body_entered"]
