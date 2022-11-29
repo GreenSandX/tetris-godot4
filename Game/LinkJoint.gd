@@ -190,6 +190,25 @@ func dismerge():
 	linkjoint_target = null
 	magnetic_target = null
 
+
+func on_magnet_area_entered(magnetic:Area2D):
+	magnetic_target = magnetic.get_parent()
+#	var mag_line = DampedSpringJoint2D.new()
+#	mag_line.set_name("MagLine")
+#	get_parent().add_child(mag_line)
+#	mag_line.position = self.position
+#	mag_line.set_damping(10)
+#	mag_line.set_stiffness(1)
+#	mag_line.set_exclude_nodes_from_collision(false)
+#	mag_line.set_node_a(self.get_parent().get_path())
+#	mag_line.set_node_b(target_joint.get_parent().get_path())
+#	magnetic_line = mag_line
+
+
+func on_magnet_area_exited(target:Area2D):
+	magnetic_target = null
+#	Util.try_queue_free(magnetic_line)
+#	magnetic_line = null
 	
 #func _on_area_entered(jointB :Area2D) -> void:
 #	print(self, " _on_area_entered ", jointB)
