@@ -33,7 +33,7 @@ func create_transform(base_cell :Cell, new_cell :Cell, base_linkjoint :Area2D, n
 	var base_transform = find_transform(base_cell)
 	var rotation = rotation_normolize(
 				new_linkjoint.rotation - ( base_transform.Rotation + base_linkjoint.rotation))
-	var offset = base_transform.Offset + base_linkjoint.position + Vector2(BLOCK_STEP / 2, 0).rotated(base_linkjoint.rotation) - ( new_linkjoint.position - Vector2(BLOCK_STEP / 2, 0).rotated(new_linkjoint.rotation))
+	var offset = base_transform.Offset + base_linkjoint.position + rotate_vec2(Vector2(BLOCK_STEP / 2, 0), base_linkjoint.rotation) - ( new_linkjoint.position - rotate_vec2(Vector2(BLOCK_STEP / 2, 0), new_linkjoint.rotation))
 	return {
 		"Cell" : new_cell ,
 		"Tile_pos" : tile_pos,
@@ -100,7 +100,7 @@ func print():
 	var j = 1
 	for transform in transform_s:
 		print("|---- ", j, " : ")
-		print("|------Cell     : ", transform.Cell)
+		print("|------Cell     : ", transform.Cell.get_name())
 		print("|------Offset   : ", transform.Offset)
 		print("|------Rotation : ", transform.Rotation)
 		print("|------Transted_tile_s : ", transform.Transted_tile_pos)
@@ -131,4 +131,10 @@ func rotation_clamp(_rotation :float) -> float:
 	return _rotation
 
 
-### 自制旋转函数
+func rotate_vec2(vec2 :Vector2, rotation :float) -> Vector2 :
+	var new_vec2 :Vector2
+	match rotation :
+		PI / 2  : new_vec2 = Vector2(-vec2.y, vec2.x)
+		-PI / 2 : new_vec2 = Vector2(vec2.y, -vec2.x)
+		PI, -PI : new_vec2 = Vector2(-vec2.x, -vec2.y)
+	return new_vec2
