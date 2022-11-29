@@ -24,22 +24,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://Game/Combinant.gd"
 }, {
-"base": "Timer",
-"class": &"JointTimer",
+"base": "Node",
+"class": &"Util",
 "language": &"GDScript",
-"path": "res://Game/JointTimer.gd"
-}, {
-"base": "BlockCell",
-"class": &"TetrisCell",
-"language": &"GDScript",
-"path": "res://Game/TetrisCell.gd"
+"path": "res://Util/Util.gd"
 }]
 _global_script_class_icons={
 "BlockCell": "",
 "Cell": "",
 "Combinant": "",
-"JointTimer": "",
-"TetrisCell": ""
+"Util": ""
 }
 
 [application]
@@ -51,7 +45,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Util="*res://Util/Util.gd"
+Util="res://Util/Util.gd"
 CombinantMgr="*res://Game/CombinantMgr.gd"
 
 [display]

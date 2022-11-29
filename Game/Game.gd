@@ -4,7 +4,7 @@ extends Node2D
 @onready var rope = $Selector/Rope
 @onready var selector_point = $Selector/SelectorPoint
 
-var circle_cell_pre = preload("res://Game/CircleCell.tscn")
+
 
 var typeList = {
 	1:[
@@ -82,7 +82,8 @@ func _on_product_btn_button_up() -> void:
 	var rand_color = (randi() % 7) + 1
 #	var tetris = TetrisCell.new(type_pos_s, colorList.get(rand_color))
 #
-	var tetris = TetrisCell.new([Vector2(0, 0), Vector2(1, 0)], colorList.get(rand_color))
+#	var tetris = BlockCell.new([Vector2(0, 0), Vector2(1, 0)], block_cell_pre, colorList.get(rand_color))
+	var tetris = BlockCell.new(type_pos_s, colorList.get(rand_color))
 	tetris.set_name("TetrisCell")
 	tetris.position = position + Vector2(480, 400)
 	add_child(tetris)
@@ -98,18 +99,6 @@ func _on_clear_btn_button_up() -> void:
 		if child is Cell && i < 4:
 			i += 1
 			child.queue_free()
-
-
-func _on_selector_body_exited(body: Node2D) -> void:
-#	if selected_node is RigidBody2D:
-#		var offset = get_global_mouse_position() - mouse_pos_origin
-#		selected_node.apply_impulse(offset.normalized() * 50, selector.position)
-#		print("PUUUUSH ", selected_node)
-#	if body is RigidBody2D:
-#		var offset = get_global_mouse_position() - mouse_pos_origin
-#		body.apply_impulse(offset * 1, body.position)
-	pass
-
 
 
 

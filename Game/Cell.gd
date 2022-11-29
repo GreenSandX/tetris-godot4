@@ -77,7 +77,7 @@ func dismerge_cell(pos:Vector2):
 #			mergejoint_s.erase(mergejoint)
 
 
-func splice_cell(cell:Cell, offset:Vector2):
+func splice_cell(cell :Node, offset :Vector2):
 	Util.move_children_from_to("Shape", cell, self, offset)
 	Util.move_children_from_to("VisualNode", cell, self, offset)
 	Util.move_children_from_to_check_pos("LinkJoint", cell, self, offset, false)

@@ -292,4 +292,3 @@ func on_magnet_area_exited(target:Area2D):
 #	print(self, " HAS LINKED TO ", linking_target
 #				," AT ", self.position, " AND ", linking_target.position)
 #	print("TNE GLOBAL POSITION IS ", self.global_position, " AND ", linking_target.global_position)
-

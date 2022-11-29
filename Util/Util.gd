@@ -1,3 +1,4 @@
+class_name Util
 extends Node
 
 static func try_get_child_from(_name: String, node: Node) -> Node:
@@ -55,11 +56,11 @@ static func move_child_from_to_global():
 	pass
 
 
-static func move_child_from_to_check_pos(child:Node, _name:String, new:Node, offset:Vector2, check_pos_s:Array, keep_own:bool) -> Node:
+static func move_child_from_to_check_pos(child:Node, _name:String, new:Node, offset:Vector2, check_pos_s:Array, keep_own:bool):# -> Node:
 	var new_pos = child.position + offset
 	if !check_pos_s.has(new_pos):	# No same position, could move
 		move_child_from_to(child, new, offset)
-		return child
+#		return child
 	else:	# Have similar position
 		if keep_own:# Keep own child and dont move
 			pass	
@@ -67,7 +68,7 @@ static func move_child_from_to_check_pos(child:Node, _name:String, new:Node, off
 			for own_child in try_get_children_from(_name, new):	# Find the own_child which has the same pos
 				if own_child.position == new_pos:
 					own_child.queue_free()
-		return null
+#		return null
 
 
 
