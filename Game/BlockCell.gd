@@ -2,6 +2,7 @@ class_name BlockCell
 extends Cell
 var _material := preload("res://Shader/color_swap_m.tres")
 var block_cell_pre := load("res://Game/BlockCell.tscn")
+var _physics_material := preload("res://Materials/BlockCell.tres")
 
 var color := Color("b316d3ff")
 
@@ -26,6 +27,8 @@ func _ready():
 	get_material().set_shader_parameter("color", color)
 	audio_player = Util.try_get_child_from("AudioPlayer", self)
 	set_gravity_scale(1)
+	
+	set_physics_material_override(_physics_material)
 	super()
 
 

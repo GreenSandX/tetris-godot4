@@ -44,10 +44,11 @@ func _process(delta: float) -> void:
 		var radius = magnet_shape.get_shape().get_radius()
 		line_width = (radius/offset.length()) * 3
 		line_width = clamp(line_width, 0, 3)
-		cell_target.apply_impulse( offset.normalized() * 
-				(- sqrt(radius/2 + offset.length()) + 6)
-				* 3 , 
-				magnetic_target.position)
+#		cell_target.apply_impulse( offset.normalized() * 
+#				(- sqrt(radius/2 + offset.length()) + 6)
+#				* 3 , 
+#				magnetic_target.position)
+		cell_target.apply_impulse(  offset * 1, magnetic_target.position)
 #		cell_target.angular_damp = clamp((1/offset.length()) * 30, 16, 100)
 #		cell_target.apply_impulse( offset * value, magnetic_target.position)
 
@@ -79,7 +80,7 @@ func set_state(STATE:int):
 			
 			
 		MERGED:
-			set_color(Color.GREEN).set_energy(1.2)
+			set_color(Color.GREEN).set_energy(1)
 		DISLINKING:
 #			magnet_shape.disabled = false
 			set_color(Color.BLUE).set_energy(0.8)

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dfbtu8as6hxdf" path="res://Assets/light16.png" id="3_xfqkn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3pcqo"]
-radius = 4.0
+radius = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyejl"]
 radius = 16.0

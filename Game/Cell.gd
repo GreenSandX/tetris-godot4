@@ -1,6 +1,8 @@
 class_name Cell
 extends RigidBody2D
 
+
+
 #var linkjoint_pos_s := [] #.set_typed(TYPE_VECTOR2)
 #var linkjoint_s := []
 #var merged_cells := []
@@ -14,7 +16,7 @@ var audio_player :AudioStreamPlayer
 func _ready():
 	linear_damp = 4
 	angular_damp = 15
-	set_gravity_scale(0)
+	set_gravity_scale(1)
 	custom_integrator = true
 	
 	linkjoint_connect_to_combinant()
