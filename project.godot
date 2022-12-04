@@ -47,7 +47,6 @@ config/icon="res://icon.svg"
 
 Util="res://Util/Util.gd"
 CombinantMgr="*res://Game/CombinantMgr.gd"
-Debug="*res://Util/Debug.gd"
 
 [display]
 

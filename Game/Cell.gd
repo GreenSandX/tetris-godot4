@@ -26,6 +26,8 @@ func linkjoint_connect_to_combinant():
 	for linkjoint in Util.try_get_children_from("LinkJoint", self):
 		linkjoint.connect("joint_merged", Callable(CombinantMgr, "on_cell_merged"))
 		linkjoint.connect("joint_dismerged", Callable(CombinantMgr, "on_cell_dismerged"))
+#		linkjoint.connect("joint_merged","on_cell_merged")
+
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

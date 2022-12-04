@@ -15,6 +15,8 @@ var magnetic_target :Area2D
 var pinjoint :PinJoint2D
 
 var is_mergeing := false
+var fast_link := false
+var fast_link_time := 3
 
 var state :int
 
@@ -36,6 +38,20 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if fast_link && fast_link_time > 0 :
+		var target = get_overlapping_areas()
+		print("fast_link @@@@@@@@ ")
+		fast_link_time -= 1
+		if  target != [] :
+			linkjoint_target = target[0]
+			set_state(MERGED)
+			merge(linkjoint_target)
+			print("fast_link @@@@@@@@ ", linkjoint_target)
+			linkjoint_target.linkjoint_target = self
+			linkjoint_target.set_state(MERGED)
+			linkjoint_target.merge(self)
+			fast_link = false
+	
 	queue_redraw()
 	if magnetic_target != null && state != MERGED:
 		var cell_target = magnetic_target.get_parent()
@@ -198,6 +214,10 @@ func queue_free():
 		emit_signal("joint_dismerge", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
 		linkjoint_target.dismerge()
 	super.queue_free()
+
+
+func set_fast_link():
+	fast_link = true
 
 
 func on_magnet_area_entered(magnetic:Area2D):

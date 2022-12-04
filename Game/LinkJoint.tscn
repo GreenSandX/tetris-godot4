@@ -37,7 +37,7 @@ collision_mask = 4
 
 [node name="Shape" type="CollisionShape2D" parent="Magnet"]
 shape = SubResource("CircleShape2D_jyejl")
-debug_color = Color(0.180392, 0.631373, 0.345098, 0.419608)
+debug_color = Color(0.25098, 0.698039, 0.298039, 0.196078)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

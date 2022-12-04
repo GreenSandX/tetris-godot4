@@ -65,17 +65,19 @@ func create_transform(base_cell :Cell, new_cell :Cell, base_lkj :Area2D, new_lkj
 
 func find_transform(cell :Cell) -> Dictionary:
 	for transform in transform_s:
-		if transform.get("Cell") == cell : return transform
+#		if !is_instance_valid(transform):
+		if transform.get("Cell") == cell : 
+			return transform
 	# or
-	var base_cell = {
+	var base_cell_trs = {
 		"Cell" : cell ,
 		"Tile_pos" : cell.block_pos_s,
 		"Offset" : Vector2.ZERO,
 		"Rotation" : RIGHT,
 		"Transted_tile_pos" : cell.block_pos_s,
 	}
-	transform_s.append(base_cell)
-	return base_cell
+	transform_s.append(base_cell_trs)
+	return base_cell_trs
 
 
 func transte_pos(pos_s :Array, rotation, offset :Vector2) -> Array :
@@ -109,14 +111,26 @@ func updata_cell(cell :Cell) -> void:
 
 func remove_cell(cell :Cell) -> void :
 	cell_s.erase(cell)
-	for transform in transform_s : if transform.Cell == cell : transform_s.erase(transform)
+	for transform in transform_s : 
+		if transform.Cell == cell : 
+#			print("before transforms : ", transform_s)
+			transform_s.erase(transform)
+#			print("after transforms : ", transform_s)
+			return
+
+
+func delete_cell(cell :Cell) -> void :
+	if cell_s.has(cell) :
+		for sequence in sequence_s :
+			if sequence.Cell_A == cell || sequence.Cell_B == cell :
+				sequence_s.erase(sequence)
+		remove_cell(cell)
 
 
 func print():
-	print("Combinant :")
 	var h = 1
 	for cell in cell_s :
-		print("#----", h, " : ", cell.get_name())
+		print("#---- ", h, " : ", cell.get_name())
 		h += 1
 	print("|--Sequence_s:")
 	var i = 1
@@ -133,6 +147,27 @@ func print():
 		print("|------Transted_tile_s : ", transform.Transted_tile_pos)
 		j += 1
 
+
+func fast_print():
+	var h = 1
+	print(">> Cell_s:")
+	for cell in cell_s :
+		print("#-- ", h, " : ", cell.get_name())
+		h += 1
+		
+	print(">> Sequence_s:")
+	for sequence in sequence_s :
+		print("|---- ", sequence.Cell_A.get_name(), " -> ", sequence.Cell_B.get_name())
+		
+	print(">> Transform_s:")
+	var j = 1
+	for transform in transform_s:
+		print("|-- ", j, " : ", "Cell : ", transform.Cell.get_name()," --- ",transform.Transted_tile_pos)
+#		print("|------Offset   : ", transform.Offset)
+#		print("|------Rotation : ", transform.Rotation)
+#		print("|--Transted_tile_s : ", transform.Transted_tile_pos)
+		j += 1
+	print("")
 
 func size() -> int :
 	return tile_pos.size()

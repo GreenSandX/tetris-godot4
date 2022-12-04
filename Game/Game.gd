@@ -67,6 +67,12 @@ func _process(delta: float) -> void:
 		rope.set_node_b("")
 		selected_node = null
 		has_drag = false
+	
+	
+func _on_block_cell_divide(pos_s :Array, color):
+	var tetris = BlockCell.new(pos_s, color)
+	
+
 
 func _on_quit_btn_button_up() -> void:
 	get_tree().quit()
@@ -87,7 +93,8 @@ func _on_product_btn_button_up() -> void:
 	var rand_color = (randi() % 7) + 1
 
 	var tetris = BlockCell.new(type_pos_s, colorList.get(rand_color))
-	tetris.set_name("TetrisCell" + String.num_int64(index))
+	tetris.set_name("TetrisCell_" + String.num_int64(index))
+	index += 1
 	tetris.position = produce_point.position
 	add_child(tetris)
 

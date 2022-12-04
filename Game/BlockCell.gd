@@ -5,6 +5,8 @@ var _material := preload("res://Shader/color_swap_m.tres")
 var block_cell_pre := load("res://Game/BlockCell.tscn")
 var _physics_material := preload("res://Materials/BlockCell.tres")
 
+signal divide(new_cells :Array, color)
+
 var color := Color("b316d3ff")
 
 var block_pos_s := []
@@ -47,9 +49,51 @@ func split_block(tile_pos :Vector2):
 	if block_pos_s.has(tile_pos) :
 		super.split_cell(block_cell_pre.instantiate(), tile_pos * BLOCK_SETP)
 		block_pos_s.erase(tile_pos)
-		
-		
 
-func divide(divide_block_pos_s :Array):
-	var new_blockcell = BlockCell.new()
-	for pos in divide_block_pos_s : splice_block(pos)
+	var checked_list = []
+	var i = 100
+	for pos in block_pos_s :
+		if !checked_list.has(pos) :
+#			emit_signal("divide",dfs(pos, block_pos_s, checked_list), color)
+			var blockcell = BlockCell.new(dfs(pos, block_pos_s, checked_list), color)
+			get_parent().add_child(blockcell)
+			blockcell.position = position
+			blockcell.rotation = rotation
+			i += 100
+			for lkj in Util.try_get_children_from("LinkJoint", blockcell):
+				lkj.set_fast_link()
+	self.delete()
+
+
+
+var direction = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
+
+func dfs(start :Vector2, array :Array, checked :Array) -> Array:
+	var return_list = []
+	if !checked.has(start) :
+		checked.append(start)
+		return_list.append(start)
+		for dir in direction :
+			var new = start + dir
+			if array.has(new) && !checked.has(new) : 
+				return_list.append_array(dfs(new, array, checked))
+	return return_list
+
+
+#func divide(divide_block_pos_s :Array):
+#	var divided_blocks = []
+#	for pos_start in divide_block_pos_s :
+#		var blocks = []
+#
+#		var new_blockcell = BlockCell.new()
+#		for pos in divide_block_pos_s : splice_block(pos)
+
+
+func delete():
+	for combinant in CombinantMgr.combinant_s :
+		if combinant.cell_s.has(self) :
+			combinant.delete_cell(self)
+#			super.queue_free()
+	print("I m freeeeeeeeeeeeeeeeeeeeee")
+
+	queue_free()

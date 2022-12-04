@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://uqdqdmf7sb1j"]
+[gd_scene load_steps=7 format=3 uid="uid://uqdqdmf7sb1j"]
 
-[ext_resource type="Script" path="res://Game/BlockCell.gd" id="1_88y15"]
 [ext_resource type="Material" uid="uid://cdovsthvhtqgt" path="res://Shader/color_swap_m.tres" id="2_bxn6i"]
 [ext_resource type="Texture2D" uid="uid://d17qfyjnuhe0q" path="res://Assets/brick_only_green64.png" id="2_ktgmy"]
 [ext_resource type="PackedScene" uid="uid://d1en0v7iianb2" path="res://Game/LinkJoint.tscn" id="3_ue1y8"]
@@ -9,8 +8,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pknhv"]
 bounce = 0.5
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrjj8"]
-size = Vector2(64, 64)
+[sub_resource type="GDScript" id="GDScript_bqefn"]
 
 [node name="BlockCell" type="RigidBody2D"]
 material = ExtResource("2_bxn6i")
@@ -18,10 +16,10 @@ mass = 2.47
 inertia = 1.97
 physics_material_override = SubResource("PhysicsMaterial_pknhv")
 custom_integrator = true
-script = ExtResource("1_88y15")
+script = SubResource("GDScript_bqefn")
 
-[node name="Shape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_lrjj8")
+[node name="Shape2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-27, -32, 27, -32, 29, -31, 31, -29, 32, -27, 32, 27, 31, 29, 29, 31, 27, 32, -27, 32, -29, 31, -31, 29, -32, 27, -32, -27, -31, -29, -29, -31)
 
 [node name="VisualNode" type="Sprite2D" parent="."]
 use_parent_material = true

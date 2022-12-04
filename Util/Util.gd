@@ -92,3 +92,6 @@ static func try_queue_free(node) -> bool:
 		node.queue_free()
 		return true
 	return false
+
+
+#static func divide(vec2_array :Array) ->  

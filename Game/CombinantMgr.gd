@@ -40,16 +40,20 @@ func on_cell_merged(cell_A:Cell, linkjoint_A:Area2D, cell_B:Cell, linkjoint_B:Ar
 			combinant_A.add_sequence(cell_A, cell_B)	# Just add new sequence and no other info
 		else : merge_combinant(combinant_A, combinant_B)
 	elif combinant_A == null && combinant_B != null :	# Add to exist combinant
-		combinant_B.add(cell_A, cell_B, linkjoint_A, linkjoint_B)
+		combinant_B.add(cell_B, cell_A, linkjoint_B, linkjoint_A)
 	else: 
 		combinant_A.add(cell_A, cell_B, linkjoint_A, linkjoint_B)
+	
+	for combinant in combinant_s : combinant.fast_print()
 
 
 func on_cell_dismerge(cell_A:Cell, linkjoint_A:Area2D, cell_B:Cell, linkjoint_B:Area2D):
 	for combinant in combinant_s :
 		if cell_A in combinant.cell_s : combinant.remove_sequence(cell_A, cell_B)
-	print("After dis merged ---------------------------------------")
+	print("--------------------------------------- After dis merged ")
 	print(cell_A.get_name(), " dismerge to ", cell_B.get_name())
+	
+	for combinant in combinant_s : combinant.fast_print()
 
 
 func merge_combinant(combinant_A :Combinant, combinant_B :Combinant):
