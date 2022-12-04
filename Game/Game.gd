@@ -123,7 +123,12 @@ func _on_selector_body_entered(body: Node2D) -> void:
 
 
 func _on_print_btn_button_up() -> void:
-	for combinant in CombinantMgr.combinant_s : combinant.print()
+	var i = 1
+	for combinant in CombinantMgr.combinant_s :
+		print("----- Combinant [ ",i,  " ] ----- START ------- [ ", i, " ] ")
+		combinant.print()
+		print("----- Combinant [ ",i,  " ] ----- END --------- [ ", i, " ] ")
+		i += 1
 
 
 func _on_util_btn_button_up() -> void:

@@ -51,7 +51,8 @@ func on_cell_dismerge(cell_A:Cell, linkjoint_A:Area2D, cell_B:Cell, linkjoint_B:
 	for combinant in combinant_s :
 		if cell_A in combinant.cell_s : combinant.remove_sequence(cell_A, cell_B)
 	print("--------------------------------------- After dis merged ")
-	print(cell_A.get_name(), " dismerge to ", cell_B.get_name())
+	print(cell_A.get_name(), " --X--> ", cell_B.get_name())
+	print()
 	
 	for combinant in combinant_s : combinant.fast_print()
 

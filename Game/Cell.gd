@@ -16,7 +16,7 @@ var audio_player :AudioStreamPlayer
 func _ready():
 	linear_damp = 4
 	angular_damp = 15
-	set_gravity_scale(1)
+	set_gravity_scale(2)
 	custom_integrator = true
 	
 	linkjoint_connect_to_combinant()

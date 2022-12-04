@@ -212,6 +212,7 @@ func queue_free():
 	if linkjoint_target != null :
 		pinjoint.queue_free()
 		emit_signal("joint_dismerge", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
+#		self.dismerge()
 		linkjoint_target.dismerge()
 	super.queue_free()
 

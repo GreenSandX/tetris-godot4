@@ -51,7 +51,6 @@ func split_block(tile_pos :Vector2):
 		block_pos_s.erase(tile_pos)
 
 	var checked_list = []
-	var i = 100
 	for pos in block_pos_s :
 		if !checked_list.has(pos) :
 #			emit_signal("divide",dfs(pos, block_pos_s, checked_list), color)
@@ -59,7 +58,6 @@ func split_block(tile_pos :Vector2):
 			get_parent().add_child(blockcell)
 			blockcell.position = position
 			blockcell.rotation = rotation
-			i += 100
 			for lkj in Util.try_get_children_from("LinkJoint", blockcell):
 				lkj.set_fast_link()
 	self.delete()
@@ -95,5 +93,7 @@ func delete():
 			combinant.delete_cell(self)
 #			super.queue_free()
 	print("I m freeeeeeeeeeeeeeeeeeeeee")
-
+	for lkj in Util.try_get_children_from("LinkJoint", self) :
+		if lkj.linkjoint_target != null :
+			lkj.queue_free()
 	queue_free()
