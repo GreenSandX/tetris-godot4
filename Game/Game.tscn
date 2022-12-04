@@ -30,8 +30,8 @@ anchor_left = 2.656
 anchor_right = 2.656
 anchor_bottom = 0.87
 offset_left = -632.32
-offset_right = -0.320068
-offset_bottom = 8.15991
+offset_right = -16.3199
+offset_bottom = 8.16003
 
 [node name="QuitBtn" type="Button" parent="Control/Panel"]
 anchors_preset = -1
@@ -185,7 +185,7 @@ freeze = true
 linear_damp = 15.73
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor3"]
-position = Vector2(1960, 576)
+position = Vector2(1944, 576)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_tp80f")
 

@@ -38,7 +38,7 @@ func on_cell_merged(cell_A:Cell, linkjoint_A:Area2D, cell_B:Cell, linkjoint_B:Ar
 	elif combinant_A != null && combinant_B != null :	# Merge exist combinants
 		if combinant_A == combinant_B :	# CellA and CellB has already in one combinant
 			combinant_A.add_sequence(cell_A, cell_B)	# Just add new sequence and no other info
-		else : merge_combinant(combinant_A, combinant_B)
+		else : merge_combinant(combinant_A, combinant_B, cell_A, cell_B, linkjoint_A, linkjoint_B)
 	elif combinant_A == null && combinant_B != null :	# Add to exist combinant
 		combinant_B.add(cell_B, cell_A, linkjoint_B, linkjoint_A)
 	else: 
@@ -57,12 +57,14 @@ func on_cell_dismerge(cell_A:Cell, linkjoint_A:Area2D, cell_B:Cell, linkjoint_B:
 	for combinant in combinant_s : combinant.fast_print()
 
 
-func merge_combinant(combinant_A :Combinant, combinant_B :Combinant):
+func merge_combinant(combinant_A :Combinant, combinant_B :Combinant, 
+		cell_A: Cell, cell_B :Cell, linkjoint_A :Area2D, linkjoint_B :Area2D):
 	if combinant_A == combinant_B : return
+	print("[[[[[[[[[[[[[-------------------- merged ----------------------]]]]]]]]]]]]")
 	if combinant_A.size() >= combinant_B.size() : 
-		combinant_A.merge(combinant_B)
+		combinant_A.merge(combinant_B, cell_A, cell_B, linkjoint_A, linkjoint_B)
 		combinant_s.erase(combinant_B)
 	else :
-		combinant_B.merge(combinant_A)
+		combinant_B.merge(combinant_A, cell_B, cell_A, linkjoint_B, linkjoint_A)
 		combinant_s.erase(combinant_A)
 

@@ -50,6 +50,9 @@ var impulse_multiple := 1
 
 var has_drag = false
 
+func _ready() -> void:
+	rope.set_node_a(selector_point.get_path())
+
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("push"):

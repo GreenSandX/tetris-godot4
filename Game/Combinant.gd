@@ -54,13 +54,13 @@ func create_transform(base_cell :Cell, new_cell :Cell, base_lkj :Area2D, new_lkj
 	var base_lkj_position_r = rotate_orthogonal(base_lkj.position, base_trs.Rotation)
 	var new_lkj_position_r  = rotate_orthogonal(new_lkj.position, rotation)
 	var offset = base_trs.Offset * BLOCK_STEP + base_lkj_position_r - new_lkj_position_r
-	
+	print("I create_transform")
 	return {
 		"Cell" : new_cell ,
 		"Tile_pos" : cell_tile_pos,
 		"Offset" : offset / BLOCK_STEP,
 		"Rotation" : rotation,
-		"Transted_tile_pos" : transte_pos(tile_pos, rotation, offset),
+		"Transted_tile_pos" : transte_pos(cell_tile_pos, rotation, offset)
 	}
 
 func find_transform(cell :Cell) -> Dictionary:
@@ -76,7 +76,7 @@ func find_transform(cell :Cell) -> Dictionary:
 		"Rotation" : RIGHT,
 		"Transted_tile_pos" : cell.block_pos_s,
 	}
-	transform_s.append(base_cell_trs)
+	transform_s.append(base_cell_trs)	# For the first cell's trs
 	return base_cell_trs
 
 
@@ -90,11 +90,33 @@ func transte_pos(pos_s :Array, rotation, offset :Vector2) -> Array :
 	return transted_pos
 
 
-func merge(combinant :Combinant):
-	sequence_s.append_array(combinant.sequence_s)
-	transform_s.append_array(combinant.transform_s)
-	tile_pos.append_array(combinant.tile_pos)
-	cell_s.append_array(combinant.cell_s)
+func merge(combinant_B :Combinant, cell_A: Cell, cell_B :Cell, 
+		linkjoint_A :Area2D, linkjoint_B :Area2D):
+			
+	sequence_s.append(create_sequence(cell_A, cell_B))
+	
+	var new_trs = create_transform(cell_A, cell_B, linkjoint_A, linkjoint_B)
+	var new_rotation = new_trs.Rotation
+	var new_offset = new_trs.Offset * BLOCK_STEP
+	var old_trs = combinant_B.find_transform(cell_B)
+	var old_rotation = old_trs.Rotation
+	var old_offset = old_trs.Offset * BLOCK_STEP
+	var base_trs = find_transform(cell_A)
+	var base_rotation = base_trs.Rotation
+	var base_offset = base_trs.Offset * BLOCK_STEP
+	
+	var all_rotation = abs_ort(base_rotation + orthogonal(linkjoint_A.rotation) + LEFT 
+			- old_rotation - orthogonal(linkjoint_B.rotation))
+	var all_offset = new_offset - rotate_orthogonal(old_offset, all_rotation)
+	
+	for trs in combinant_B.transform_s :
+		trs.Transted_tile_pos = transte_pos(trs.Transted_tile_pos, all_rotation, all_offset)
+		trs.Offset = all_offset / BLOCK_STEP + rotate_orthogonal( trs.Offset, all_rotation)
+		trs.Rotation = abs_ort( trs.Rotation + all_rotation)
+	transform_s.append_array(combinant_B.transform_s)
+#	tile_pos.append_array(combinant_B.tile_pos)
+	cell_s.append_array(combinant_B.cell_s)
+	sequence_s.append_array(combinant_B.sequence_s)
 
 
 func add(cell_A :Cell, cell_B :Cell, linkjoint_A :Area2D, linkjoint_B :Area2D):
@@ -160,11 +182,8 @@ func fast_print():
 	print("--->> Transform_s <<---")
 	var j = 1
 	for transform in transform_s:
-		print("|-- ", j, " : ", transform.Cell.get_name()," ",transform.Transted_tile_pos)
-	
-#		print("|------Offset   : ", transform.Offset)
-#		print("|------Rotation : ", transform.Rotation)
-#		print("|--Transted_tile_s : ", transform.Transted_tile_pos)
+		print("|-- ", j, " : ", transform.Cell.get_name(), " ",
+		transform.Offset, " [", transform.Rotation, "] -- ",transform.Transted_tile_pos)
 		j += 1
 	print()
 
