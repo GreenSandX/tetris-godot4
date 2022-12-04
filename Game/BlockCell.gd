@@ -49,7 +49,7 @@ func split_block(tile_pos :Vector2):
 	if block_pos_s.has(tile_pos) :
 		super.split_cell(block_cell_pre.instantiate(), tile_pos * BLOCK_SETP)
 		block_pos_s.erase(tile_pos)
-
+		
 	var checked_list = []
 	for pos in block_pos_s :
 		if !checked_list.has(pos) :
@@ -60,8 +60,7 @@ func split_block(tile_pos :Vector2):
 			blockcell.rotation = rotation
 			for lkj in Util.try_get_children_from("LinkJoint", blockcell):
 				lkj.set_fast_link()
-	self.delete()
-
+	self.delete_self()
 
 
 var direction = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
@@ -78,21 +77,12 @@ func dfs(start :Vector2, array :Array, checked :Array) -> Array:
 	return return_list
 
 
-#func divide(divide_block_pos_s :Array):
-#	var divided_blocks = []
-#	for pos_start in divide_block_pos_s :
-#		var blocks = []
-#
-#		var new_blockcell = BlockCell.new()
-#		for pos in divide_block_pos_s : splice_block(pos)
-
-
-func delete():
+func delete_self():
 	for combinant in CombinantMgr.combinant_s :
 		if combinant.cell_s.has(self) :
 			combinant.delete_cell(self)
 #			super.queue_free()
-	print("I m freeeeeeeeeeeeeeeeeeeeee")
+
 	for lkj in Util.try_get_children_from("LinkJoint", self) :
 		if lkj.linkjoint_target != null :
 			lkj.queue_free()

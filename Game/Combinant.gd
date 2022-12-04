@@ -42,7 +42,7 @@ func remove_sequence(cell_A :Cell, cell_B :Cell) -> void :
 
 
 func create_transform(base_cell :Cell, new_cell :Cell, base_lkj :Area2D, new_lkj :Area2D) -> Dictionary:
-	var tile_pos = new_cell.block_pos_s
+	var cell_tile_pos = new_cell.block_pos_s
 	var base_trs = find_transform(base_cell)
 #	var rotation = rotation_normolize(
 #				new_linkjoint.rotation - ( base_transform.Rotation + base_linkjoint.rotation))
@@ -57,7 +57,7 @@ func create_transform(base_cell :Cell, new_cell :Cell, base_lkj :Area2D, new_lkj
 	
 	return {
 		"Cell" : new_cell ,
-		"Tile_pos" : tile_pos,
+		"Tile_pos" : cell_tile_pos,
 		"Offset" : offset / BLOCK_STEP,
 		"Rotation" : rotation,
 		"Transted_tile_pos" : transte_pos(tile_pos, rotation, offset),
@@ -125,7 +125,7 @@ func delete_cell(cell :Cell) -> void :
 		remove_cell(cell)
 
 
-func print():
+func print_all():
 	var h = 1
 	for cell in cell_s :
 		print("#-- ", h, " : ", cell.get_name())

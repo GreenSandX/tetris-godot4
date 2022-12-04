@@ -50,16 +50,8 @@ var impulse_multiple := 1
 
 var has_drag = false
 
-func _ready() -> void:
-	rope.set_node_a(selector_point.get_path())
-	pass
 
-
-func _physics_process(delta: float) -> void:
-	pass
-	
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_pressed("push"):
 		selector.position = get_global_mouse_position()
 	else : 
@@ -68,10 +60,10 @@ func _process(delta: float) -> void:
 		selected_node = null
 		has_drag = false
 	
-	
-func _on_block_cell_divide(pos_s :Array, color):
-	var tetris = BlockCell.new(pos_s, color)
-	
+#
+#func _on_block_cell_divide(pos_s :Array, color):
+#	var tetris = BlockCell.new(pos_s, color)
+#
 
 
 func _on_quit_btn_button_up() -> void:
@@ -108,8 +100,8 @@ func _on_clear_btn_button_up() -> void:
 
 
 
-func _on_h_slider_value_changed(value: float) -> void:
-	impulse_multiple = $Control/HSlider.get_value()
+func _on_h_slider_value_changed(_value: float) -> void:
+	impulse_multiple = int(_value)
 	$Control/HSlider/Label.set_text(String.num(impulse_multiple as int))
 
 
@@ -126,7 +118,7 @@ func _on_print_btn_button_up() -> void:
 	var i = 1
 	for combinant in CombinantMgr.combinant_s :
 		print("----- Combinant [ ",i,  " ] ----- START ------- [ ", i, " ] ")
-		combinant.print()
+		combinant.print_all()
 		print("----- Combinant [ ",i,  " ] ----- END --------- [ ", i, " ] ")
 		i += 1
 
