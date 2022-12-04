@@ -90,11 +90,24 @@ func transte_pos(pos_s :Array, rotation, offset :Vector2) -> Array :
 	return transted_pos
 
 
+func find_transform_pos(tile_pos :Vector2) -> Dictionary :
+	for transform in transform_s:
+#		if !is_instance_valid(transform):
+		if transform.Transted_tile_pos.has(tile_pos): 
+			return transform
+	return {}
+
+
+func split_tile(tile_pos :Vector2) :
+	var trs = find_transform_pos(tile_pos)
+	if trs != {} : trs.Cell.split_block(trs.Tile_pos[trs.Transted_tile_pos.find(tile_pos)])
+
+
 func merge(combinant_B :Combinant, cell_A: Cell, cell_B :Cell, 
 		linkjoint_A :Area2D, linkjoint_B :Area2D):
 			
 	sequence_s.append(create_sequence(cell_A, cell_B))
-	
+
 	var new_trs = create_transform(cell_A, cell_B, linkjoint_A, linkjoint_B)
 	var new_rotation = new_trs.Rotation
 	var new_offset = new_trs.Offset * BLOCK_STEP

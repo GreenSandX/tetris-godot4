@@ -128,7 +128,9 @@ func _on_print_btn_button_up() -> void:
 
 func _on_util_btn_button_up() -> void:
 	var target_block :BlockCell
-	var combinant = CombinantMgr.combinant_s[0]
-	var trs_s = combinant.transform_s
-	for trs in trs_s : if trs.Transted_tile_pos.has(Vector2(-5, -1)) : target_block = trs.Cell
-	if target_block != null : target_block.split_block(Vector2(-1, -1))
+	if CombinantMgr.combinant_s != [] :
+		var combinant = CombinantMgr.combinant_s[0]
+		combinant.split_tile(Vector2(-1, -1))
+#	var trs_s = combinant.transform_s
+#	for trs in trs_s : if trs.Transted_tile_pos.has(Vector2(-5, -1)) : target_block = trs.Cell
+#	if target_block != null : target_block.split_block(Vector2(-1, -1))
