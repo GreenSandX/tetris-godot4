@@ -3,7 +3,7 @@ extends Node2D
 @onready var selector = $Selector
 @onready var rope = $Selector/Rope
 @onready var selector_point = $Selector/SelectorPoint
-
+@onready var debug_label = $Control/Panel/DebugLabel
 
 
 var typeList = {
@@ -39,7 +39,7 @@ var colorList = {
 	7:Color("14c090ff")
 }
 
-
+var list = [5, 6]
 var selected_node : Node
 
 #var selected_pos : Vector2
@@ -73,11 +73,16 @@ func _on_quit_btn_button_up() -> void:
 
 
 func _on_product_btn_button_up() -> void:
-	randomize()
-	var rand_type = typeList.get(randi() % 7 + 1 )
 	var type_pos_s = []
+	var rand_type
+	if list.is_empty() :
+		randomize()
+		rand_type = typeList.get(randi() % 7 + 1 )
+	else : 
+		rand_type = typeList.get(list.pop_back())
 	for i in rand_type:
 		type_pos_s.append(Vector2(i[0], i[1]))
+
 	randomize()
 	var rand_color = (randi() % 7) + 1
 #	var tetris = TetrisCell.new(type_pos_s, colorList.get(rand_color))

@@ -35,20 +35,14 @@ static func try_get_children_pos_from(_name: String, node: Node) -> Array:
 static func move_child_from_to(child: Node, new: Node, offset: Vector2) -> Node:
 	child.position += offset
 	child.get_parent().remove_child(child)
-	
-#	if child is Area2D:
-##		print(child.get_script().get_script_method_list())
-##		child.set_script("res://Game/LinkJoint.gd")
-##		print(child, " add script", child.get_script())
-#		pass
-	
 	new.add_child(child)
 	return child
 
+
 static func move_children_from_to(_name:String, old:Node, new:Node, offset:Vector2) -> Array:
-	var children = try_get_children_from(_name, old)
-	for child in children:
-		move_child_from_to(child, new, offset)
+	var children := []
+	for child in try_get_children_from(_name, old):
+		children.append(move_child_from_to(child, new, offset))
 	return children
 
 # --- With the DIFFERENT POSITION
