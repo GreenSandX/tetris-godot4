@@ -4,7 +4,7 @@ extends Node2D
 @onready var rope = $Selector/Rope
 @onready var selector_point = $Selector/SelectorPoint
 @onready var debug_label = $Control/Panel/DebugLabel
-
+@onready var produce_point = $ProducePoint
 
 var typeList = {
 	1:[
@@ -39,7 +39,8 @@ var colorList = {
 	7:Color("14c090ff")
 }
 
-var list = [5, 6]
+var list = [6, 5, 3, 6]
+
 var selected_node : Node
 
 #var selected_pos : Vector2
@@ -61,7 +62,6 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("push"):
 		selector.position = get_global_mouse_position()
-
 	else : 
 		selector.position = Vector2(-100, -100)
 		rope.set_node_b("")
@@ -72,6 +72,7 @@ func _on_quit_btn_button_up() -> void:
 	get_tree().quit()
 
 
+var index = 1
 func _on_product_btn_button_up() -> void:
 	var type_pos_s = []
 	var rand_type
@@ -79,23 +80,16 @@ func _on_product_btn_button_up() -> void:
 		randomize()
 		rand_type = typeList.get(randi() % 7 + 1 )
 	else : 
-		rand_type = typeList.get(list.pop_back())
+		rand_type = typeList.get(list.pop_front())
 	for i in rand_type:
 		type_pos_s.append(Vector2(i[0], i[1]))
-
 	randomize()
 	var rand_color = (randi() % 7) + 1
-#	var tetris = TetrisCell.new(type_pos_s, colorList.get(rand_color))
-#
-#	var tetris = BlockCell.new([Vector2(0, 0), Vector2(1, 0)], block_cell_pre, colorList.get(rand_color))
-	var tetris = BlockCell.new(type_pos_s, colorList.get(rand_color))
-	tetris.set_name("TetrisCell")
-	tetris.position = position + Vector2(480, 400)
-	add_child(tetris)
 
-#	var circle_cell = circle_cell_pre.instantiate()
-#	circle_cell.position = position + Vector2(256, 300)
-#	add_child(circle_cell)
+	var tetris = BlockCell.new(type_pos_s, colorList.get(rand_color))
+	tetris.set_name("TetrisCell" + String.num_int64(index))
+	tetris.position = produce_point.position
+	add_child(tetris)
 
 
 func _on_clear_btn_button_up() -> void:
@@ -119,3 +113,15 @@ func _on_selector_body_entered(body: Node2D) -> void:
 		has_drag = true
 		selected_node = body
 		rope.set_node_b(body.get_path())
+
+
+func _on_print_btn_button_up() -> void:
+	for combinant in CombinantMgr.combinant_s : combinant.print()
+
+
+func _on_util_btn_button_up() -> void:
+	var target_block :BlockCell
+	var combinant = CombinantMgr.combinant_s[0]
+	var trs_s = combinant.transform_s
+	for trs in trs_s : if trs.Transted_tile_pos.has(Vector2(-5, -1)) : target_block = trs.Cell
+	if target_block != null : target_block.split_block(Vector2(-1, -1))

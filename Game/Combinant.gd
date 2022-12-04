@@ -103,9 +103,7 @@ func add(cell_A :Cell, cell_B :Cell, linkjoint_A :Area2D, linkjoint_B :Area2D):
 
 
 func updata_cell(cell :Cell) -> void:
-	for s in sequence_s :
-		if s.Cell_A == cell || s.Cell_B == cell :
-			return
+	for s in sequence_s : if s.Cell_A == cell || s.Cell_B == cell : return
 	remove_cell(cell)
 
 

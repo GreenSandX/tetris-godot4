@@ -25,6 +25,7 @@ offset_bottom = 1240.0
 
 [node name="Panel" type="Panel" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 2.656
 anchor_right = 2.656
@@ -34,18 +35,49 @@ offset_right = -0.320068
 offset_bottom = 8.15991
 
 [node name="QuitBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.993
 offset_left = -160.0
 offset_top = 8.0
+offset_right = 0.00012207
 offset_bottom = -984.44
 theme_override_fonts/font = ExtResource("2_1url8")
 theme_override_font_sizes/font_size = 32
 text = "关闭"
 
+[node name="PrintBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.993
+offset_left = -328.0
+offset_top = 8.0
+offset_right = -168.0
+offset_bottom = -984.44
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 32
+text = "打印"
+
+[node name="UtilBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.993
+offset_left = -328.0
+offset_top = 96.0
+offset_right = -168.0
+offset_bottom = -896.44
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 32
+text = "Util"
+
 [node name="ProductBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -58,6 +90,7 @@ theme_override_font_sizes/font_size = 32
 text = "生成"
 
 [node name="ClearBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -70,6 +103,7 @@ theme_override_font_sizes/font_size = 32
 text = "清除"
 
 [node name="HSlider" type="HSlider" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -83,6 +117,7 @@ max_value = 50.0
 value = 25.0
 
 [node name="Label" type="Label" parent="Control/Panel/HSlider"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.05
 anchor_top = -1.0
@@ -98,6 +133,7 @@ theme_override_font_sizes/font_size = 18
 text = "25"
 
 [node name="Label2" type="Label" parent="Control/Panel/HSlider"]
+layout_mode = 1
 anchors_preset = -1
 anchor_top = -1.0
 anchor_right = 1.0
@@ -110,6 +146,7 @@ theme_override_font_sizes/font_size = 16
 text = "推力倍数"
 
 [node name="DebugLabel" type="RichTextLabel" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.038
 anchor_top = 0.326
@@ -182,7 +219,12 @@ shape = SubResource("CircleShape2D_eppci")
 disabled = true
 debug_color = Color(0, 0.6, 0, 0.207843)
 
+[node name="ProducePoint" type="Marker2D" parent="."]
+position = Vector2(640, 192)
+
 [connection signal="button_up" from="Control/Panel/QuitBtn" to="." method="_on_quit_btn_button_up"]
+[connection signal="button_up" from="Control/Panel/PrintBtn" to="." method="_on_print_btn_button_up"]
+[connection signal="button_up" from="Control/Panel/UtilBtn" to="." method="_on_util_btn_button_up"]
 [connection signal="button_up" from="Control/Panel/ProductBtn" to="." method="_on_product_btn_button_up"]
 [connection signal="button_up" from="Control/Panel/ClearBtn" to="." method="_on_clear_btn_button_up"]
 [connection signal="value_changed" from="Control/Panel/HSlider" to="." method="_on_h_slider_value_changed"]

@@ -16,7 +16,6 @@ var pinjoint :PinJoint2D
 
 var is_mergeing := false
 
-
 var state :int
 
 const LINK_DELAY := 0.3
@@ -141,6 +140,7 @@ func _on_area_exited(target :Area2D) -> void:
 		set_state(IDEL)
 		stop_timing(LINKING)
 		linkjoint_target = null
+#		link_target = null
 	elif state == MERGED:
 		set_state(DISLINKING)
 		start_timing(DISLINKING)
@@ -186,10 +186,18 @@ func merge(target_joint:Node2D):
 
 
 func dismerge():
-	if Util.try_queue_free(pinjoint) :
+	if Util.try_queue_free(pinjoint) && linkjoint_target != null :
 		emit_signal("joint_dismerge", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
 	linkjoint_target = null
 	magnetic_target = null
+
+
+func queue_free():
+	if linkjoint_target != null :
+		pinjoint.queue_free()
+		emit_signal("joint_dismerge", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
+		linkjoint_target.dismerge()
+	super.queue_free()
 
 
 func on_magnet_area_entered(magnetic:Area2D):

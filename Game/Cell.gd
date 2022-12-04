@@ -20,13 +20,7 @@ func _ready():
 	custom_integrator = true
 	
 	linkjoint_connect_to_combinant()
-#	for joint in Util.try_get_children_from("LinkJoint", self):
-#		joint.connect("joint_merged", Callable(self, "on_joint_merged"))
-#		joint.connect("joint_dismerge", Callable(self, "on_joint_dismerge"))
-#	for i in Util.try_get_children_from("LinkJoint", self):
-#		linkjoint_s.append(i)
-#	linkjoint_s = Util.try_get_children_from("LinkJoint", self)
-#	linkjoint_pos_s = Util.try_get_children_pos_from("LinkJoint", self)
+
 
 func linkjoint_connect_to_combinant():
 	for linkjoint in Util.try_get_children_from("LinkJoint", self):
@@ -34,49 +28,9 @@ func linkjoint_connect_to_combinant():
 		linkjoint.connect("joint_dismerged", Callable(CombinantMgr, "on_cell_dismerged"))
 
 
-
-
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.integrate_forces()
 	pass
-	
-
-#func connect_linkjoint(linkjoint:Area2D):
-#	linkjoint.connect("area_entered", Callable(self, "linkjoint_entered"))
-
-	
-#
-#func on_joint_merged(jointA:Area2D, jointB:Area2D):
-#	if is_merging:
-#		return
-#	is_merging = true
-#	jointB.get_parent().is_merging = true
-#	merge_cell(jointB.get_parent(), jointA.position, jointB.position)
-#	is_merging = false
-
-
-#func on_joint_dismerge(jointA:Area2D, jointB:Area2D):
-#	dismerge_cell(jointA.position)
-
-func dismerge_cell(pos:Vector2):
-	pass
-#	for merge_info in merged_cells:
-#		if merge_info.MergeJoint.position == pos:
-#			var cell = merge_info.Rigidbody
-#			var mergejoint = merge_info.MergeJoint
-#			mergejoint.remove_child(cell)
-#			get_parent().add_child(cell)
-#			if cell != null:
-#				cell.set_freeze_enabled(false)
-#			for shape in merge_info.Shapes:
-#				self.remove_child(shape)
-#				cell.add_child(shape)
-#				shape.position = shape.position - pos
-#
-##				Util.move_children_from_to("Shape", , self, cell , pos)
-#			print("MergeJoint ", mergejoint.position, " DISMerged ", cell)
-#			mergejoint.queue_free()
-#			mergejoint_s.erase(mergejoint)
 
 
 func splice_cell(cell :Node, offset :Vector2):
@@ -84,17 +38,14 @@ func splice_cell(cell :Node, offset :Vector2):
 	Util.move_children_from_to("VisualNode", cell, self, offset)
 	Util.move_children_from_to_check_pos("LinkJoint", cell, self, offset, false)
 	cell.queue_free()
-	
-	
-#	for new_joint in Util.move_children_from_to_check_pos("LinkJoint", cell, self, offset, false):
-##		new_joint.set_script("res://Game/LinkJoint.gd")
-##		Util.move_child_from_to(new_joint, self, Vector2.ZERO)
-##		new_joint.queue_free()
-##		new_joint.connect("joint_merged", Callable(self, "on_joint_merged"))
-##		new_joint.connect("joint_dismerge", Callable(self, "on_joint_dismerge"))
-#		linkjoint_s.append(new_joint)
-#		new_joint.call("")
-#	print(self, " spliced : ", cell, " at ", offset)
+
+
+func split_cell(cell :Node, offset :Vector2):
+	Util.move_children_from_to_check_pos("Shape", cell, self, offset, false)
+	Util.move_children_from_to_check_pos("VisualNode", cell, self, offset, false)
+	Util.move_children_from_to_check_pos("LinkJoint", cell, self, offset, false)
+	cell.queue_free()
+
 
 func merge_cell(target:Cell, self_merge_pos:Vector2, target_merge_pos:Vector2):
 	pass
@@ -136,3 +87,24 @@ func merge_cell(target:Cell, self_merge_pos:Vector2, target_merge_pos:Vector2):
 #	pin.position = self_merge_pos
 #	pin.add_child(target)
 #	target.position = -target_merge_pos
+
+
+func dismerge_cell(pos:Vector2):
+	pass
+#	for merge_info in merged_cells:
+#		if merge_info.MergeJoint.position == pos:
+#			var cell = merge_info.Rigidbody
+#			var mergejoint = merge_info.MergeJoint
+#			mergejoint.remove_child(cell)
+#			get_parent().add_child(cell)
+#			if cell != null:
+#				cell.set_freeze_enabled(false)
+#			for shape in merge_info.Shapes:
+#				self.remove_child(shape)
+#				cell.add_child(shape)
+#				shape.position = shape.position - pos
+#
+##				Util.move_children_from_to("Shape", , self, cell , pos)
+#			print("MergeJoint ", mergejoint.position, " DISMerged ", cell)
+#			mergejoint.queue_free()
+#			mergejoint_s.erase(mergejoint)
