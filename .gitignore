@@ -2,3 +2,6 @@
 .godot/
 android/
 .apk
+export/
+.exe
+.pck
