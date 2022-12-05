@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cfbxwmh4ql556"]
+
+[ext_resource type="FontFile" uid="uid://cxqhgys8m50hm" path="res://fonts/IPix中文像素字体.ttf" id="1_drap6"]
+
+[resource]
+default_font = ExtResource("1_drap6")
+default_font_size = 32
+Label/constants/line_spacing = 4
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_drap6")

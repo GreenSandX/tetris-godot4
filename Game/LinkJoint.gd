@@ -30,26 +30,20 @@ const LIGHT_STATE = {}
 func _ready() -> void:
 	magnet.connect("area_entered", Callable(self, "on_magnet_area_entered"))
 	magnet.connect("area_exited", Callable(self, "on_magnet_area_exited"))
-	
-
-	pass
-
-
 
 
 func _process(delta: float) -> void:
 	if fast_link && fast_link_time > 0 :
 		var target = get_overlapping_areas()
-		print("fast_link @@@@@@@@ ")
 		fast_link_time -= 1
 		if  target != [] :
 			linkjoint_target = target[0]
 			set_state(MERGED)
 			merge(linkjoint_target)
-			print("fast_link @@@@@@@@ ", linkjoint_target)
 			linkjoint_target.linkjoint_target = self
 			linkjoint_target.set_state(MERGED)
 			linkjoint_target.merge(self)
+			
 			fast_link = false
 	
 	queue_redraw()
@@ -185,9 +179,11 @@ func on_dislink_timeout() -> void:
 func merge(target_joint:Node2D):
 	if is_mergeing:
 		return
+#	if !is_instance_valid(target_joint) :
+#		print("22222222222222", self,"   ", self.get_parent())
+#		return
 	target_joint.is_mergeing = true
 	is_mergeing = true
-	emit_signal("joint_merged", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
 	var pin = PinJoint2D.new()
 	pin.set_name("Pin")
 	get_parent().add_child(pin)
@@ -199,6 +195,7 @@ func merge(target_joint:Node2D):
 	pinjoint = pin
 	target_joint.is_mergeing = false
 	is_mergeing = false
+	emit_signal("joint_merged", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
 
 
 func dismerge():
@@ -210,7 +207,7 @@ func dismerge():
 
 func queue_free():
 	if linkjoint_target != null :
-		pinjoint.queue_free()
+		Util.try_queue_free(pinjoint)
 		emit_signal("joint_dismerge", self.get_parent(), self, linkjoint_target.get_parent(), linkjoint_target)
 #		self.dismerge()
 		linkjoint_target.dismerge()

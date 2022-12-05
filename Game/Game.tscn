@@ -1,19 +1,72 @@
-[gd_scene load_steps=6 format=3 uid="uid://ka3uda16xwsd"]
+[gd_scene load_steps=10 format=3 uid="uid://ka3uda16xwsd"]
 
 [ext_resource type="Script" path="res://Game/Game.gd" id="1_byfcf"]
 [ext_resource type="FontFile" uid="uid://cxqhgys8m50hm" path="res://fonts/IPix中文像素字体.ttf" id="2_1url8"]
+[ext_resource type="Texture2D" uid="uid://dx5rbi88fe1on" path="res://Assets/background.png" id="3_rfha7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o7lu0"]
+texture = ExtResource("3_rfha7")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/0 = 0
+6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_mw4bq"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_o7lu0")
+
+[sub_resource type="SystemFont" id="SystemFont_5wvqj"]
+font_names = PackedStringArray("Sans-Serif")
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_56j5q"]
+font_names = PackedStringArray("Source Han Sans SC")
+multichannel_signed_distance_field = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yfrv7"]
 radius = 3.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tp80f"]
-size = Vector2(1932, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eppci"]
 radius = 344.093
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_byfcf")
+
+[node name="Background" type="TileMap" parent="."]
+position = Vector2(0, -8)
+tile_set = SubResource("TileSet_mw4bq")
+cell_quadrant_size = 64
+format = 2
+layer_0/tile_data = PackedInt32Array(8, 0, 0, 65544, 0, 0, 131080, 0, 0, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 524296, 0, 0, 589832, 0, 0, 655368, 0, 0, 720904, 0, 0, 786440, 0, 0, 851976, 0, 0, 917512, 0, 0, 983048, 0, 0, 1048584, 65536, 0, 17, 327680, 0, 65553, 327680, 0, 131089, 327680, 0, 196625, 327680, 0, 262161, 327680, 0, 327697, 327680, 0, 393233, 327680, 0, 458769, 327680, 0, 524305, 327680, 0, 589841, 327680, 0, 655377, 327680, 0, 720913, 327680, 0, 786449, 327680, 0, 851985, 327680, 0, 917521, 327680, 0, 983057, 327680, 0, 1048593, 262144, 0, 983051, 131072, 0, 917515, 131072, 0, 851979, 131072, 0, 786443, 131072, 0, 720907, 131072, 0, 655371, 131072, 0, 589835, 131072, 0, 524299, 131072, 0, 458763, 131072, 0, 393227, 131072, 0, 327691, 131072, 0, 262155, 131072, 0, 196619, 131072, 0, 131083, 131072, 0, 65547, 131072, 0, 11, 131072, 0, 1048590, 196608, 0, 983054, 131072, 0, 917518, 131072, 0, 851982, 131072, 0, 786446, 131072, 0, 720910, 131072, 0, 655374, 131072, 0, 589838, 131072, 0, 524302, 131072, 0, 458766, 131072, 0, 393230, 131072, 0, 327694, 131072, 0, 262158, 131072, 0, 196622, 131072, 0, 131086, 131072, 0, 65550, 131072, 0, 14, 131072, 0, 1048594, 393216, 0, 983058, 393216, 0, 917522, 393216, 0, 851986, 393216, 0, 786450, 393216, 0, 720914, 393216, 0, 655378, 393216, 0, 589842, 393216, 0, 524306, 393216, 0, 458770, 393216, 0, 393234, 393216, 0, 327698, 393216, 0, 262162, 393216, 0, 18, 393216, 0, 65554, 393216, 0, 131090, 393216, 0, 196626, 393216, 0, 1048585, 0, 1, 1048586, 0, 1, 1048588, 0, 1, 1048589, 0, 1, 1048591, 0, 1, 1048592, 0, 1, 983049, 65536, 1, 917513, 65536, 1, 851977, 65536, 1, 786441, 65536, 1, 983050, 65536, 1, 917514, 65536, 1, 851978, 65536, 1, 786442, 65536, 1, 720906, 65536, 1, 9, 65536, 1, 65545, 65536, 1, 131081, 65536, 1, 196617, 65536, 1, 262153, 65536, 1, 327689, 65536, 1, 393225, 65536, 1, 458761, 65536, 1, 524297, 65536, 1, 589833, 65536, 1, 655369, 65536, 1, 720905, 65536, 1, 10, 65536, 1, 65546, 65536, 1, 131082, 65536, 1, 196618, 65536, 1, 262154, 65536, 1, 327690, 65536, 1, 393226, 65536, 1, 458762, 65536, 1, 524298, 65536, 1, 589834, 65536, 1, 655370, 65536, 1, 12, 65536, 1, 65548, 65536, 1, 131084, 65536, 1, 196620, 65536, 1, 262156, 65536, 1, 327692, 65536, 1, 393228, 65536, 1, 458764, 65536, 1, 524300, 65536, 1, 589836, 65536, 1, 655372, 65536, 1, 720908, 65536, 1, 786444, 65536, 1, 851980, 65536, 1, 917516, 65536, 1, 983052, 65536, 1, 13, 65536, 1, 65549, 65536, 1, 131085, 65536, 1, 196621, 65536, 1, 262157, 65536, 1, 327693, 65536, 1, 393229, 65536, 1, 458765, 65536, 1, 524301, 65536, 1, 589837, 65536, 1, 655373, 65536, 1, 720909, 65536, 1, 786445, 65536, 1, 851981, 65536, 1, 917517, 65536, 1, 983053, 65536, 1, 15, 65536, 1, 65551, 65536, 1, 131087, 65536, 1, 196623, 65536, 1, 262159, 65536, 1, 327695, 65536, 1, 393231, 65536, 1, 458767, 65536, 1, 524303, 65536, 1, 589839, 65536, 1, 655375, 65536, 1, 720911, 65536, 1, 786447, 65536, 1, 851983, 65536, 1, 917519, 65536, 1, 983055, 65536, 1, 16, 65536, 1, 65552, 65536, 1, 131088, 65536, 1, 196624, 65536, 1, 262160, 65536, 1, 327696, 65536, 1, 393232, 65536, 1, 458768, 65536, 1, 524304, 65536, 1, 589840, 65536, 1, 655376, 65536, 1, 720912, 65536, 1, 786448, 65536, 1, 851984, 65536, 1, 917520, 65536, 1, 983056, 65536, 1, 1048587, 196608, 0, 786439, 393216, 0, 851975, 393216, 0, 917511, 393216, 0, 983047, 393216, 0, 1048583, 393216, 0, 327687, 393216, 0, 393223, 393216, 0, 458759, 393216, 0, 524295, 393216, 0, 589831, 393216, 0, 655367, 393216, 0, 720903, 393216, 0, 7, 393216, 0, 65543, 393216, 0, 131079, 393216, 0, 196615, 393216, 0, 262151, 393216, 0, 0, 458752, 0, 65536, 458752, 0, 131072, 458752, 0, 196608, 458752, 0, 262144, 458752, 0, 327680, 458752, 0, 393216, 458752, 0, 458752, 458752, 0, 524288, 458752, 0, 589824, 458752, 0, 655360, 458752, 0, 720896, 458752, 0, 786432, 458752, 0, 851968, 458752, 0, 917504, 458752, 0, 983040, 458752, 0, 1048576, 458752, 0, 1, 458752, 0, 65537, 458752, 0, 131073, 458752, 0, 196609, 458752, 0, 262145, 458752, 0, 327681, 458752, 0, 393217, 458752, 0, 458753, 458752, 0, 524289, 458752, 0, 589825, 458752, 0, 655361, 458752, 0, 720897, 458752, 0, 786433, 458752, 0, 851969, 458752, 0, 917505, 458752, 0, 983041, 458752, 0, 1048577, 458752, 0, 2, 458752, 0, 65538, 458752, 0, 131074, 458752, 0, 196610, 458752, 0, 262146, 458752, 0, 327682, 458752, 0, 393218, 458752, 0, 458754, 458752, 0, 524290, 458752, 0, 589826, 458752, 0, 655362, 458752, 0, 720898, 458752, 0, 786434, 458752, 0, 851970, 458752, 0, 917506, 458752, 0, 983042, 458752, 0, 1048578, 458752, 0, 3, 458752, 0, 65539, 458752, 0, 131075, 458752, 0, 196611, 458752, 0, 262147, 458752, 0, 327683, 458752, 0, 393219, 458752, 0, 458755, 458752, 0, 524291, 458752, 0, 589827, 458752, 0, 655363, 458752, 0, 720899, 458752, 0, 786435, 458752, 0, 851971, 458752, 0, 917507, 458752, 0, 983043, 458752, 0, 1048579, 458752, 0, 4, 458752, 0, 65540, 458752, 0, 131076, 458752, 0, 196612, 458752, 0, 262148, 458752, 0, 327684, 458752, 0, 393220, 458752, 0, 458756, 458752, 0, 524292, 458752, 0, 589828, 458752, 0, 655364, 458752, 0, 720900, 458752, 0, 786436, 458752, 0, 851972, 458752, 0, 917508, 458752, 0, 983044, 458752, 0, 1048580, 458752, 0, 5, 458752, 0, 65541, 458752, 0, 131077, 458752, 0, 196613, 458752, 0, 262149, 458752, 0, 327685, 458752, 0, 393221, 458752, 0, 458757, 458752, 0, 524293, 458752, 0, 589829, 458752, 0, 655365, 458752, 0, 720901, 458752, 0, 786437, 458752, 0, 851973, 458752, 0, 917509, 458752, 0, 983045, 458752, 0, 1048581, 458752, 0, 6, 458752, 0, 65542, 458752, 0, 131078, 458752, 0, 196614, 458752, 0, 262150, 458752, 0, 327686, 458752, 0, 393222, 458752, 0, 458758, 458752, 0, 524294, 458752, 0, 589830, 458752, 0, 655366, 458752, 0, 720902, 458752, 0, 786438, 458752, 0, 851974, 458752, 0, 917510, 458752, 0, 983046, 458752, 0, 1048582, 458752, 0, 19, 458752, 0, 65555, 458752, 0, 131091, 458752, 0, 196627, 458752, 0, 262163, 458752, 0, 327699, 458752, 0, 393235, 458752, 0, 458771, 458752, 0, 524307, 458752, 0, 589843, 458752, 0, 655379, 458752, 0, 720915, 458752, 0, 786451, 458752, 0, 851987, 458752, 0, 917523, 458752, 0, 983059, 458752, 0, 1048595, 458752, 0, 20, 458752, 0, 65556, 458752, 0, 131092, 458752, 0, 196628, 458752, 0, 262164, 458752, 0, 327700, 458752, 0, 393236, 458752, 0, 458772, 458752, 0, 524308, 458752, 0, 589844, 458752, 0, 655380, 458752, 0, 720916, 458752, 0, 786452, 458752, 0, 851988, 458752, 0, 917524, 458752, 0, 983060, 458752, 0, 1048596, 458752, 0, 21, 458752, 0, 65557, 458752, 0, 131093, 458752, 0, 196629, 458752, 0, 262165, 458752, 0, 327701, 458752, 0, 393237, 458752, 0, 458773, 458752, 0, 524309, 458752, 0, 589845, 458752, 0, 655381, 458752, 0, 720917, 458752, 0, 786453, 458752, 0, 851989, 458752, 0, 917525, 458752, 0, 983061, 458752, 0, 1048597, 458752, 0, 22, 458752, 0, 65558, 458752, 0, 131094, 458752, 0, 196630, 458752, 0, 262166, 458752, 0, 327702, 458752, 0, 393238, 458752, 0, 458774, 458752, 0, 524310, 458752, 0, 589846, 458752, 0, 655382, 458752, 0, 720918, 458752, 0, 786454, 458752, 0, 851990, 458752, 0, 917526, 458752, 0, 983062, 458752, 0, 1048598, 458752, 0, 23, 458752, 0, 65559, 458752, 0, 131095, 458752, 0, 196631, 458752, 0, 262167, 458752, 0, 327703, 458752, 0, 393239, 458752, 0, 458775, 458752, 0, 524311, 458752, 0, 589847, 458752, 0, 655383, 458752, 0, 720919, 458752, 0, 786455, 458752, 0, 851991, 458752, 0, 917527, 458752, 0, 983063, 458752, 0, 1048599, 458752, 0, 24, 458752, 0, 65560, 458752, 0, 131096, 458752, 0, 196632, 458752, 0, 262168, 458752, 0, 327704, 458752, 0, 393240, 458752, 0, 458776, 458752, 0, 524312, 458752, 0, 589848, 458752, 0, 655384, 458752, 0, 720920, 458752, 0, 786456, 458752, 0, 851992, 458752, 0, 917528, 458752, 0, 983064, 458752, 0, 1048600, 458752, 0, 1114119, 393216, 0, 1114120, 393216, 0, 1114121, 393216, 0, 1114122, 393216, 0, 1114123, 393216, 0, 1114124, 393216, 0, 1114125, 393216, 0, 1114126, 393216, 0, 1114127, 393216, 0, 1114128, 393216, 0, 1114129, 393216, 0, 1114130, 393216, 0)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -25,6 +78,7 @@ offset_bottom = 1240.0
 
 [node name="Panel" type="Panel" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 2.656
 anchor_right = 2.656
@@ -33,7 +87,54 @@ offset_left = -632.32
 offset_right = -16.3199
 offset_bottom = 8.16003
 
+[node name="AutoProduce" type="HSlider" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -312.0
+offset_top = 295.0
+offset_right = -168.0
+offset_bottom = -769.0
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 5.0
+
+[node name="Label" type="Label" parent="Control/Panel/AutoProduce"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.05
+anchor_top = -1.0
+anchor_right = 1.05
+anchor_bottom = 1.0
+offset_left = -77.2
+offset_top = -3.0
+offset_right = -51.2
+offset_bottom = -11.0
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.521569)
+theme_override_fonts/font = SubResource("SystemFont_5wvqj")
+theme_override_font_sizes/font_size = 16
+text = "5"
+
+[node name="Label2" type="Label" parent="Control/Panel/AutoProduce"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_right = 4.0
+offset_bottom = -12.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.505882)
+theme_override_fonts/font = SubResource("SystemFont_56j5q")
+theme_override_font_sizes/font_size = 16
+text = "[开] 速度：      秒每个"
+
 [node name="QuitBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -47,6 +148,7 @@ theme_override_font_sizes/font_size = 32
 text = "关闭"
 
 [node name="PrintBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -59,7 +161,22 @@ theme_override_fonts/font = ExtResource("2_1url8")
 theme_override_font_sizes/font_size = 32
 text = "打印"
 
+[node name="AutoToggleBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.993
+offset_left = -328.0
+offset_top = 184.0
+offset_right = -168.0
+offset_bottom = -800.44
+theme_override_fonts/font = ExtResource("2_1url8")
+theme_override_font_sizes/font_size = 32
+text = "自动"
+
 [node name="UtilBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -73,6 +190,7 @@ theme_override_font_sizes/font_size = 32
 text = "Util"
 
 [node name="ProductBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -85,6 +203,7 @@ theme_override_font_sizes/font_size = 32
 text = "生成"
 
 [node name="ClearBtn" type="Button" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -97,6 +216,8 @@ theme_override_font_sizes/font_size = 32
 text = "清除"
 
 [node name="HSlider" type="HSlider" parent="Control/Panel"]
+visible = false
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -105,11 +226,13 @@ offset_left = -160.0
 offset_top = 296.0
 offset_right = -1.0
 offset_bottom = -768.0
-min_value = 1.0
-max_value = 50.0
-value = 25.0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 0.5
 
 [node name="Label" type="Label" parent="Control/Panel/HSlider"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.05
 anchor_top = -1.0
@@ -125,6 +248,7 @@ theme_override_font_sizes/font_size = 18
 text = "25"
 
 [node name="Label2" type="Label" parent="Control/Panel/HSlider"]
+layout_mode = 1
 anchors_preset = -1
 anchor_top = -1.0
 anchor_right = 1.0
@@ -137,6 +261,7 @@ theme_override_font_sizes/font_size = 16
 text = "推力倍数"
 
 [node name="DebugLabel" type="RichTextLabel" parent="Control/Panel"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.038
 anchor_top = 0.326
@@ -170,52 +295,32 @@ length = 5.0
 stiffness = 10.0
 damping = 16.0
 
-[node name="Wall" type="Node2D" parent="."]
-
-[node name="Floor" type="RigidBody2D" parent="Wall"]
-freeze = true
-linear_damp = 15.73
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor"]
-position = Vector2(952, 1056)
-shape = SubResource("RectangleShape2D_tp80f")
-
-[node name="Floor3" type="RigidBody2D" parent="Wall"]
-freeze = true
-linear_damp = 15.73
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor3"]
-position = Vector2(1944, 576)
-rotation = 1.57079
-shape = SubResource("RectangleShape2D_tp80f")
-
-[node name="Floor4" type="RigidBody2D" parent="Wall"]
-freeze = true
-linear_damp = 15.73
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Floor4"]
-position = Vector2(-23.9998, 708)
-rotation = 1.57079
-shape = SubResource("RectangleShape2D_tp80f")
-
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(608, 544)
 collision_layer = 0
 gravity_space_override = 3
 gravity_point = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(224, -96)
 shape = SubResource("CircleShape2D_eppci")
 disabled = true
 debug_color = Color(0, 0.6, 0, 0.207843)
 
 [node name="ProducePoint" type="Marker2D" parent="."]
-position = Vector2(640, 192)
+position = Vector2(832, 128)
 
+[node name="ProduceTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="value_changed" from="Control/Panel/AutoProduce" to="." method="_on_auto_produce_value_changed"]
 [connection signal="button_up" from="Control/Panel/QuitBtn" to="." method="_on_quit_btn_button_up"]
 [connection signal="button_up" from="Control/Panel/PrintBtn" to="." method="_on_print_btn_button_up"]
+[connection signal="button_up" from="Control/Panel/AutoToggleBtn" to="." method="_on_auto_toggle_btn_button_up"]
 [connection signal="button_up" from="Control/Panel/UtilBtn" to="." method="_on_util_btn_button_up"]
 [connection signal="button_up" from="Control/Panel/ProductBtn" to="." method="_on_product_btn_button_up"]
 [connection signal="button_up" from="Control/Panel/ClearBtn" to="." method="_on_clear_btn_button_up"]
 [connection signal="value_changed" from="Control/Panel/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="body_entered" from="Selector" to="." method="_on_selector_body_entered"]
+[connection signal="timeout" from="ProduceTimer" to="." method="_on_produce_timer_timeout"]

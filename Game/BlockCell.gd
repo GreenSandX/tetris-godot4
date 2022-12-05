@@ -45,11 +45,16 @@ func splice_block(tile_pos :Vector2):
 	super.splice_cell(block_cell_pre.instantiate(), tile_pos * BLOCK_SETP)
 
 
-func split_block(tile_pos :Vector2):
-	if block_pos_s.has(tile_pos) :
-		super.split_cell(block_cell_pre.instantiate(), tile_pos * BLOCK_SETP)
-		block_pos_s.erase(tile_pos)
-		
+func split_block(tile_pos):
+	var tile_pos_s = []
+	if tile_pos is Vector2 : tile_pos_s.append(tile_pos)
+	if tile_pos is Array : tile_pos_s = tile_pos
+	
+	for pos in tile_pos_s :
+		if block_pos_s.has(pos) :
+			super.split_cell(block_cell_pre.instantiate(), pos * BLOCK_SETP)
+			block_pos_s.erase(pos)
+
 	var checked_list = []
 	for pos in block_pos_s :
 		if !checked_list.has(pos) :
@@ -87,3 +92,6 @@ func delete_self():
 		if lkj.linkjoint_target != null :
 			lkj.queue_free()
 	queue_free()
+
+
+

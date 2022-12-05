@@ -5,6 +5,7 @@ extends Node2D
 @onready var selector_point = $Selector/SelectorPoint
 @onready var debug_label = $Control/Panel/DebugLabel
 @onready var produce_point = $ProducePoint
+@onready var produce_timer = $ProduceTimer
 
 var typeList = {
 	1:[
@@ -39,7 +40,7 @@ var colorList = {
 	7:Color("14c090ff")
 }
 
-var list = [6, 5, 3, 6]
+var list = []
 
 var selected_node : Node
 
@@ -50,9 +51,16 @@ var impulse_multiple := 1
 
 var has_drag = false
 
+var defalt_produce_time = 3.0
+
+var index = 1
+
 func _ready() -> void:
 	rope.set_node_a(selector_point.get_path())
-
+	produce_timer.start()
+	$Control/Panel/AutoProduce/Label.set_text(String.num(defalt_produce_time, 1))
+	produce_timer.set_wait_time(defalt_produce_time)
+	
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("push"):
@@ -68,13 +76,7 @@ func _process(_delta: float) -> void:
 #	var tetris = BlockCell.new(pos_s, color)
 #
 
-
-func _on_quit_btn_button_up() -> void:
-	get_tree().quit()
-
-
-var index = 1
-func _on_product_btn_button_up() -> void:
+func produce_cell():
 	var type_pos_s = []
 	var rand_type
 	if list.is_empty() :
@@ -92,6 +94,15 @@ func _on_product_btn_button_up() -> void:
 	index += 1
 	tetris.position = produce_point.position
 	add_child(tetris)
+
+
+
+func _on_quit_btn_button_up() -> void:
+	get_tree().quit()
+
+
+func _on_product_btn_button_up() -> void:
+	produce_cell()
 
 
 func _on_clear_btn_button_up() -> void:
@@ -127,10 +138,42 @@ func _on_print_btn_button_up() -> void:
 
 
 func _on_util_btn_button_up() -> void:
-	var target_block :BlockCell
-	if CombinantMgr.combinant_s != [] :
-		var combinant = CombinantMgr.combinant_s[0]
-		combinant.split_tile(Vector2(-1, -1))
+#	if CombinantMgr.combinant_s != [] :
+#		for combinant in CombinantMgr.combinant_s :
+#			combinant.split_tile([
+#					Vector2(-5, -1),Vector2(-4, -1),Vector2(-3, -1),Vector2(-2, -1),
+#					Vector2(-1, -1),Vector2(0, -1),Vector2(1, -1),Vector2(2, -1)
+#			])
+	CombinantMgr.check()
+	pass
 #	var trs_s = combinant.transform_s
 #	for trs in trs_s : if trs.Transted_tile_pos.has(Vector2(-5, -1)) : target_block = trs.Cell
 #	if target_block != null : target_block.split_block(Vector2(-1, -1))
+
+
+func _on_produce_timer_timeout() -> void:
+	produce_cell()
+	CombinantMgr.check()
+	
+
+var auto_produce = true
+func _on_auto_toggle_btn_button_up() -> void:
+	if auto_produce == true :
+		auto_produce = false
+		produce_timer.set_one_shot(true)
+		produce_timer.stop()
+		$Control/Panel/AutoProduce/Label2.set_text("[关] 速度：      秒每个")
+	else :
+		auto_produce = true
+		produce_timer.set_one_shot(false)
+		produce_timer.start()
+		$Control/Panel/AutoProduce/Label2.set_text("[开] 速度：      秒每个")
+
+
+func _on_auto_produce_value_changed(value: float) -> void:
+	$Control/Panel/AutoProduce/Label.set_text(String.num(value, 1))
+	produce_timer.set_wait_time(value)
+	if value > 1 : $Control/Panel/AutoProduce.set_step(1)
+	else : $Control/Panel/AutoProduce.set_step(0.1)
+
+

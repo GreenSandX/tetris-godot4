@@ -1,5 +1,7 @@
 class_name Combinant
 
+signal separate_to(new_combinant_s :Array)
+
 var sequence_s := []
 var tile_pos := []	# Block pos and transfrom through the linkjoint
 var transform_s := []
@@ -10,6 +12,7 @@ enum { RIGHT, DOWN, LEFT, UP }
 
 func _init(cell_A :Cell, cell_B :Cell, linkjoint_A :Area2D, linkjoint_B :Area2D):
 	add(cell_A, cell_B, linkjoint_A , linkjoint_B)
+	connect("separate_to", Callable(CombinantMgr, "_on_combinant_separate_to"))
 	
 	
 func remove(cell :Cell):
@@ -54,7 +57,7 @@ func create_transform(base_cell :Cell, new_cell :Cell, base_lkj :Area2D, new_lkj
 	var base_lkj_position_r = rotate_orthogonal(base_lkj.position, base_trs.Rotation)
 	var new_lkj_position_r  = rotate_orthogonal(new_lkj.position, rotation)
 	var offset = base_trs.Offset * BLOCK_STEP + base_lkj_position_r - new_lkj_position_r
-	print("I create_transform")
+
 	return {
 		"Cell" : new_cell ,
 		"Tile_pos" : cell_tile_pos,
@@ -98,9 +101,28 @@ func find_transform_pos(tile_pos :Vector2) -> Dictionary :
 	return {}
 
 
-func split_tile(tile_pos :Vector2) :
-	var trs = find_transform_pos(tile_pos)
-	if trs != {} : trs.Cell.split_block(trs.Tile_pos[trs.Transted_tile_pos.find(tile_pos)])
+func split_tile(tile_pos) :
+	var tile_pos_s = []
+	if tile_pos is Vector2 : tile_pos_s.append(tile_pos)
+	if tile_pos is Array : tile_pos_s = tile_pos
+	
+	var split_cell_s = []
+	var split_pos_s = []
+	for pos in tile_pos_s :
+		var trs = find_transform_pos(pos)
+		if trs != {} :
+			var cell = trs.Cell
+			if split_cell_s.has(cell) : 
+				split_pos_s[split_cell_s.find(cell)].append(
+						trs.Tile_pos[trs.Transted_tile_pos.find(pos)])
+			else : 
+				split_cell_s.append(cell)
+				split_pos_s.append([trs.Tile_pos[trs.Transted_tile_pos.find(pos)]])
+
+	if split_cell_s != [] :
+		for i in range(split_cell_s.size()) :
+			split_cell_s[i].split_block(split_pos_s[i])
+
 
 
 func merge(combinant_B :Combinant, cell_A: Cell, cell_B :Cell, 
@@ -149,14 +171,18 @@ func remove_cell(cell :Cell) -> void :
 	for transform in transform_s : 
 		if transform.Cell == cell : 
 			transform_s.erase(transform)
-			return
+#			return
 
 
 func delete_cell(cell :Cell) -> void :
 	if cell_s.has(cell) :
-		for sequence in sequence_s :
-			if sequence.Cell_A == cell || sequence.Cell_B == cell :
-				sequence_s.erase(sequence)
+		var remove_index = []
+		for i in range(sequence_s.size()) :
+			if sequence_s[i].Cell_A == cell || sequence_s[i].Cell_B == cell :
+#				sequence_s.remove_at(i)
+				remove_index.append(i)
+		for i in remove_index :
+			sequence_s.remove_at(i)
 		remove_cell(cell)
 
 
